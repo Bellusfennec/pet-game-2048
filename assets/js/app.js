@@ -39,8 +39,8 @@ createSquares()
 app.addEventListener(
   'touchstart',
   function (event) {
-    touchstartX = event.screenX
-    touchstartY = event.screenY
+    touchstartX = event.changedTouches[0].screenX
+    touchstartY = event.changedTouches[0].screenY
   },
   false
 )
@@ -48,8 +48,9 @@ app.addEventListener(
 app.addEventListener(
   'touchend',
   function (event) {
-    touchendX = event.screenX
-    touchendY = event.screenY
+    console.log(event.changedTouches[0]);
+    touchendX = event.changedTouches[0].screenX
+    touchendY = event.changedTouches[0].screenY
     handleGesure()
   },
   false
@@ -78,19 +79,19 @@ function setRandomValue() {
 }
 
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'ArrowUp' || touchendY > touchstartY) {
+  if (event.key === 'ArrowUp') {
     moveTop()
     setRandomValue()
   }
-  if (event.key === 'ArrowRight' || touchendX > touchstartX) {
+  if (event.key === 'ArrowRight') {
     moveRight()
     setRandomValue()
   }
-  if (event.key === 'ArrowDown' || touchendY < touchstartY) {
+  if (event.key === 'ArrowDown') {
     moveBottom()
     setRandomValue()
   }
-  if (event.key === 'ArrowLeft' || touchendX < touchstartX) {
+  if (event.key === 'ArrowLeft') {
     moveLeft()
     setRandomValue()
   }
@@ -340,4 +341,33 @@ function moveCell(previousCell, cell, nextCell, move = 'right') {
       },
     })
   }
+}
+
+function handleGesure() {
+  let x = Math.abs(touchstartX - touchendX)
+  let y = Math.abs(touchstartY - touchendY)
+
+  console.log('X', touchstartX, touchendX, x);
+  console.log('Y', touchstartY, touchendY, y);
+  console.log(y < x);
+
+  if (touchendY < touchstartY && y > x) {
+    moveTop()
+    setRandomValue()
+  }
+  if (touchendX > touchstartX && y < x) {
+    moveRight()
+    setRandomValue()
+  }
+  if (touchendY > touchstartY && y > x) {
+    moveBottom()
+    setRandomValue()
+  }
+  if (touchendX < touchstartX && y < x) {
+    moveLeft()
+    setRandomValue()
+  }
+  if (touchendY == touchstartY) {
+    console.log('tap!');
+}
 }
