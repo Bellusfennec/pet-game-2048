@@ -2,27 +2,32 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: .312rem;
 }
 html,
 body {
-  font-size: 16px;
+  font-size: 15.9936px;
   font-family: "Roboto", serif;
+  @media screen and (max-width: 400px) {
+    font-size: 10px;
+  }
 }
 #game {
   display: flex;
-  width: calc(500px + 60px);
+  width: calc(31.2504rem + 3.75rem);
   flex-wrap: wrap;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #e0e0e0;
-  padding: 5px;
+  padding: .312rem;
+  user-select: none;
+  touch-action: none;
   .square {
-    margin: 5px;
-    height: 100px;
-    width: 100px;
+    margin: .312rem;
+    height: 6.2496rem;
+    width: 6.2496rem;
     background: lighten(#e0e0e0, 10%);
     // transition: 0.3s;
     font-size: 3.5rem;

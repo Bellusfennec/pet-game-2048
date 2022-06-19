@@ -3,14 +3,21 @@
   margin: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  -webkit-border-radius: 5px;
-          border-radius: 5px;
+  -webkit-border-radius: .312rem;
+          border-radius: .312rem;
 }
 
 html,
 body {
-  font-size: 16px;
+  font-size: 15.9936px;
   font-family: "Roboto", serif;
+}
+
+@media screen and (max-width: 400px) {
+  html,
+  body {
+    font-size: 10px;
+  }
 }
 
 #game {
@@ -18,8 +25,8 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: -webkit-calc(500px + 60px);
-  width: calc(500px + 60px);
+  width: -webkit-calc(31.2504rem + 3.75rem);
+  width: calc(31.2504rem + 3.75rem);
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -30,13 +37,19 @@ body {
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   background: #e0e0e0;
-  padding: 5px;
+  padding: .312rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -ms-touch-action: none;
+      touch-action: none;
 }
 
 #game .square {
-  margin: 5px;
-  height: 100px;
-  width: 100px;
+  margin: .312rem;
+  height: 6.2496rem;
+  width: 6.2496rem;
   background: #fafafa;
   font-size: 3.5rem;
   font-weight: bold;
@@ -61,13 +74,13 @@ body {
 }
 
 #game .square div.new {
-  -webkit-animation: new 300ms ease;
-          animation: new 300ms ease;
+  -webkit-animation: new 200ms ease-out;
+          animation: new 200ms ease-out;
 }
 
 #game .square div.merge {
-  -webkit-animation: merge 300ms ease;
-          animation: merge 300ms ease;
+  -webkit-animation: merge 200ms ease-out;
+          animation: merge 200ms ease-out;
 }
 
 #game .square div.rank-0 {

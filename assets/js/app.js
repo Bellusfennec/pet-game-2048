@@ -48,7 +48,6 @@ app.addEventListener(
 app.addEventListener(
   'touchend',
   function (event) {
-    console.log(event.changedTouches[0]);
     touchendX = event.changedTouches[0].screenX
     touchendY = event.changedTouches[0].screenY
     handleGesure()
@@ -277,9 +276,9 @@ function moveCell(previousCell, cell, nextCell, move = 'right') {
       draw: function (progress) {
         square[nextCell.number].firstChild.style.transform = `${translate}(${minus}${
           abs > 0
-            ? Math.abs(progress * (countMoveCell1 * 100) + countMoveCell1 * 10)
-            : progress * (countMoveCell1 * 100) + countMoveCell1 * 10
-        }px)`
+            ? Math.abs(progress * (countMoveCell1 * 6.25) + countMoveCell1 * 0.625)
+            : progress * (countMoveCell1 * 6.25) + countMoveCell1 * 0.625
+        }rem)`
         square[nextCell.number].firstChild.style.zIndex = 1
         if (progress === 1) {
           square[nextCell.number].firstChild.style.transform = ''
@@ -304,9 +303,9 @@ function moveCell(previousCell, cell, nextCell, move = 'right') {
         draw: function (progress) {
           square[cell.number].firstChild.style.transform = `${translate}(${minus}${
             abs > 0
-              ? Math.abs(progress * (countMoveCell * 100) + countMoveCell * 10)
-              : progress * (countMoveCell * 100) + countMoveCell * 10
-          }px)`
+              ? Math.abs(progress * (countMoveCell * 6.25) + countMoveCell * 0.625)
+              : progress * (countMoveCell * 6.25) + countMoveCell * 0.625
+          }rem)`
           square[cell.number].firstChild.style.zIndex = 1
           if (progress === 1) {
             square[cell.number].firstChild.style.transform = ''
@@ -330,9 +329,9 @@ function moveCell(previousCell, cell, nextCell, move = 'right') {
       draw: function (progress) {
         square[cell.number].firstChild.style.transform = `${translate}(${minus}${
           abs > 0
-            ? Math.abs(progress * (countMoveCell * 100) + countMoveCell * 10)
-            : progress * (countMoveCell * 100) + countMoveCell * 10
-        }px)`
+            ? Math.abs(progress * (countMoveCell * 6.25) + countMoveCell * 0.625)
+            : progress * (countMoveCell * 6.25) + countMoveCell * 0.625
+        }rem)`
         square[cell.number].firstChild.style.zIndex = 1
         if (progress === 1) {
           square[cell.number].firstChild.style.transform = ''
@@ -346,10 +345,6 @@ function moveCell(previousCell, cell, nextCell, move = 'right') {
 function handleGesure() {
   let x = Math.abs(touchstartX - touchendX)
   let y = Math.abs(touchstartY - touchendY)
-
-  console.log('X', touchstartX, touchendX, x);
-  console.log('Y', touchstartY, touchendY, y);
-  console.log(y < x);
 
   if (touchendY < touchstartY && y > x) {
     moveTop()
@@ -367,7 +362,4 @@ function handleGesure() {
     moveLeft()
     setRandomValue()
   }
-  if (touchendY == touchstartY) {
-    console.log('tap!');
-}
 }
