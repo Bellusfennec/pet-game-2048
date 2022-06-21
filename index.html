@@ -14,7 +14,24 @@
     <title>Game 2048</title>
   </head>
   <body>
-    <div id="game"></div>
+    <div class="container">
+      <header class="header">
+        <h1 class="logo"><a href="/">2048</a></h1>
+        <div>
+          <div class="score"><span>Счет</span><span>0</span></div>
+          <div class="score"><span>Лучший</span><span>15734</span></div>
+        </div>
+      </header>
+      <div class="sub-header">
+        <p class="logo-desc">Соедините числа и доберитесь до плитки 2048!</p>
+        <button id="newGame">Новая игра</button>
+      </div>      
+      <div id="game"></div>
+      <p class="learn">
+        КАК ИГРАТЬ: Используйте клавиши со стрелками для перемещения плитки. Когда две плитки с
+        одинаковым номером соприкасаются, они сливаются в одну!
+      </p>
+    </div>
     <script src="assets/js/app.js"></script>
   </body>
 </html>

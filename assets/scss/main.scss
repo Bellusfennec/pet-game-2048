@@ -2,37 +2,149 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  border-radius: .312rem;
+  border-radius: 0.312rem;
 }
 html,
 body {
   font-size: 15.9936px;
   font-family: "Roboto", serif;
+  color: darken(#e0e0e0, 50%);
+  @media screen and (max-width: 600px) {
+    font-size: 11px;
+  }
   @media screen and (max-width: 400px) {
     font-size: 10px;
   }
 }
+.container {
+  margin: auto;
+  width: 560px;
+  @media screen and (max-width: 600px) {
+    width: 385px;
+  }
+  @media screen and (max-width: 400px) {
+    width: 350px;
+  }
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-top: 0.9375em;
+  @media screen and (max-width: 600px) {
+    font-size: 1.2rem;
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 1rem;
+  }
+  h1.logo {
+    margin: 0;
+    padding: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    line-height: 0.9;
+    a {
+      font-size: 3em;
+      color: darken(#e0e0e0, 50%);
+      text-decoration: none;
+      transition: 0.2s;
+      &:hover {
+        color: darken(#e0e0e0, 60%);
+      }
+    }
+  }
+  div {
+    display: flex;
+    .score {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #e0e0e0;
+      justify-content: center;
+      padding: 0 0.9375em;
+      margin: 0.625em 0;
+      &:first-of-type {
+        margin-right: 0.9375em;
+      }
+      span {
+        font-weight: bold;
+        &:first-of-type {
+          text-transform: uppercase;
+          font-size: 0.9em;
+        }
+        &:last-of-type {
+          margin-top: 0.1875em;
+          font-size: 1.3em;
+          color: lighten(#e0e0e0, 10%);
+        }
+      }
+    }
+  }
+}
+
+.sub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.625em;
+  font-size: 1rem;
+  @media screen and (max-width: 600px) {
+    font-size: 1.3rem;
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 1rem;
+  }
+  p {
+    margin-right: 0.625em;
+    font-size: 1.1rem;
+  }
+  button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-size: 1.3rem;
+    color: lighten(#e0e0e0, 20%);
+    background: darken(#e0e0e0, 20%);
+    padding: 0.4375em 0.9375em;
+    white-space: nowrap;
+    &:hover {
+      color: lighten(#e0e0e0, 30%);
+      background: darken(#e0e0e0, 30%);
+    }
+  }
+}
+.learn {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  @media screen and (max-width: 600px) {
+    font-size: 1.3rem;
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 1rem;
+  }
+}
+
 #game {
+  margin-top: 1.25rem;
   display: flex;
   width: calc(31.2504rem + 3.75rem);
   flex-wrap: wrap;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
   background: #e0e0e0;
-  padding: .312rem;
+  padding: 0.312rem;
   user-select: none;
   touch-action: none;
   .square {
-    margin: .312rem;
+    margin: 0.312rem;
     height: 6.2496rem;
     width: 6.2496rem;
     background: lighten(#e0e0e0, 10%);
     // transition: 0.3s;
     font-size: 3.5rem;
     font-weight: bold;
-    color: darken(#e0e0e0, 50%);
     div {
       height: inherit;
       width: inherit;

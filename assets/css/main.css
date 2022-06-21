@@ -3,14 +3,22 @@
   margin: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  -webkit-border-radius: .312rem;
-          border-radius: .312rem;
+  -webkit-border-radius: 0.312rem;
+          border-radius: 0.312rem;
 }
 
 html,
 body {
   font-size: 15.9936px;
   font-family: "Roboto", serif;
+  color: #616161;
+}
+
+@media screen and (max-width: 600px) {
+  html,
+  body {
+    font-size: 11px;
+  }
 }
 
 @media screen and (max-width: 400px) {
@@ -20,7 +28,189 @@ body {
   }
 }
 
+.container {
+  margin: auto;
+  width: 560px;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 385px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    width: 350px;
+  }
+}
+
+.header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 1rem;
+  margin-top: 0.9375em;
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header {
+    font-size: 1rem;
+  }
+}
+
+.header h1.logo {
+  margin: 0;
+  padding: 0;
+  -webkit-margin-before: 0;
+          margin-block-start: 0;
+  -webkit-margin-after: 0;
+          margin-block-end: 0;
+  line-height: 0.9;
+}
+
+.header h1.logo a {
+  font-size: 3em;
+  color: #616161;
+  text-decoration: none;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.header h1.logo a:hover {
+  color: #474747;
+}
+
+.header div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.header div .score {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #e0e0e0;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 0.9375em;
+  margin: 0.625em 0;
+}
+
+.header div .score:first-of-type {
+  margin-right: 0.9375em;
+}
+
+.header div .score span {
+  font-weight: bold;
+}
+
+.header div .score span:first-of-type {
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+
+.header div .score span:last-of-type {
+  margin-top: 0.1875em;
+  font-size: 1.3em;
+  color: #fafafa;
+}
+
+.sub-header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 0.625em;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .sub-header {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sub-header {
+    font-size: 1rem;
+  }
+}
+
+.sub-header p {
+  margin-right: 0.625em;
+  font-size: 1.1rem;
+}
+
+.sub-header button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  font-size: 1.3rem;
+  color: white;
+  background: #adadad;
+  padding: 0.4375em 0.9375em;
+  white-space: nowrap;
+}
+
+.sub-header button:hover {
+  color: white;
+  background: #949494;
+}
+
+.learn {
+  margin-top: 15px;
+  font-size: 1.1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .learn {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .learn {
+    font-size: 1rem;
+  }
+}
+
 #game {
+  margin-top: 1.25rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -30,14 +220,9 @@ body {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  position: relative;
   background: #e0e0e0;
-  padding: .312rem;
+  padding: 0.312rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -47,13 +232,12 @@ body {
 }
 
 #game .square {
-  margin: .312rem;
+  margin: 0.312rem;
   height: 6.2496rem;
   width: 6.2496rem;
   background: #fafafa;
   font-size: 3.5rem;
   font-weight: bold;
-  color: #616161;
 }
 
 #game .square div {

@@ -4,6 +4,7 @@ let touchendX = 0
 let touchendY = 0
 let square
 const app = document.querySelector('#game')
+const newGame = document.querySelector('#newGame')
 
 const game = {
   size: 5,
@@ -363,3 +364,11 @@ function handleGesure() {
     setRandomValue()
   }
 }
+
+newGame.addEventListener('click', () => {
+  square.forEach((element) => {
+    console.log(element);
+    element.parentNode.removeChild(element);
+  })
+  createSquares()
+})
