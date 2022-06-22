@@ -11,9 +11,12 @@ const game = {
   cells: [],
 }
 
-for (let x = 0; x < game.size; x++) {
-  for (let y = 0; y < game.size; y++) {
-    game.cells.push({ row: x, col: y, value: null })
+
+function createArrayCells() {
+  for (let x = 0; x < game.size; x++) {
+    for (let y = 0; y < game.size; y++) {
+      game.cells.push({ row: x, col: y, value: null })
+    }
   }
 }
 
@@ -29,13 +32,32 @@ function createSquares() {
     //
   })
   square = document.querySelectorAll('.square')
+}
+
+
+if (localStorage.getItem('2048-game') !== null) {
+  game.cells = JSON.parse(localStorage.getItem('2048-game'))
+  console.log('yes');
+  createSquares()
+  game.cells.forEach((cell, i, cells) => {
+    if (cell.row === game.cells[i].row && cell.col === game.cells[i].col) {
+      cell.value = game.cells[i].value
+      if (cell.value > 0) {
+        addClassSquare(cell, 'rank')
+      }
+    }
+  })
+  
+} else {
+  createArrayCells()
+  createSquares()
   game.trace = true
   setRandomValue()
   game.trace = true
   setRandomValue()
 }
+// localStorage.setItem('2048-game', JSON.stringify(array))
 
-createSquares()
 
 app.addEventListener(
   'touchstart',
@@ -76,6 +98,7 @@ function setRandomValue() {
       })
     delete game.trace
   }
+  updateCellsValues(game.cells)
 }
 
 document.addEventListener('keydown', (event) => {
@@ -99,11 +122,12 @@ document.addEventListener('keydown', (event) => {
 
 // обновить клетки в массиве
 function updateCellsValues(array) {
-  array.forEach((cell, i) => {
+  array.forEach((cell, i, cells) => {
     if (cell.row === array[i].row && cell.col === array[i].col) {
       cell.value = array[i].value
     }
   })
+  localStorage.setItem('2048-game', JSON.stringify(array))
 }
 
 // движение вверх
@@ -367,8 +391,13 @@ function handleGesure() {
 
 newGame.addEventListener('click', () => {
   square.forEach((element) => {
-    console.log(element);
     element.parentNode.removeChild(element);
   })
+  game.cells =[]
+  createArrayCells()
   createSquares()
+  game.trace = true
+  setRandomValue()
+  game.trace = true
+  setRandomValue()
 })
