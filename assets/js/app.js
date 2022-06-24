@@ -5,12 +5,13 @@ let touchendY = 0
 let square
 const app = document.querySelector('#game')
 const newGame = document.querySelector('#newGame')
+const score = document.querySelector('#score')
 
 const game = {
   size: 5,
   cells: [],
+  score: 0
 }
-
 
 function createArrayCells() {
   for (let x = 0; x < game.size; x++) {
@@ -26,18 +27,14 @@ function createSquares() {
     const item = addNode('div')
     addClass(item, 'square')
     append(app, item)
-    //
     const itemIn = addNode('div')
     append(item, itemIn)
-    //
   })
   square = document.querySelectorAll('.square')
 }
 
-
 if (localStorage.getItem('2048-game') !== null) {
   game.cells = JSON.parse(localStorage.getItem('2048-game'))
-  console.log('yes');
   createSquares()
   game.cells.forEach((cell, i, cells) => {
     if (cell.row === game.cells[i].row && cell.col === game.cells[i].col) {
@@ -47,7 +44,6 @@ if (localStorage.getItem('2048-game') !== null) {
       }
     }
   })
-  
 } else {
   createArrayCells()
   createSquares()
@@ -56,8 +52,6 @@ if (localStorage.getItem('2048-game') !== null) {
   game.trace = true
   setRandomValue()
 }
-// localStorage.setItem('2048-game', JSON.stringify(array))
-
 
 app.addEventListener(
   'touchstart',
@@ -97,6 +91,8 @@ function setRandomValue() {
         delClassSquare(cell, 'new', 300)
       })
     delete game.trace
+  } else {
+    console.log('нет свободных ячеек')
   }
   updateCellsValues(game.cells)
 }
@@ -288,6 +284,7 @@ function moveCell(previousCell, cell, nextCell, move = 'right') {
     }
     delClassSquare(cell, 'rank', 100)
     cell.value *= 2
+    increaseScore(cell.value)
     addClassSquare(cell, 'rank', 100)
     delClassSquare(nextCell, 'rank', 100)
     nextCell.value = null
@@ -391,9 +388,10 @@ function handleGesure() {
 
 newGame.addEventListener('click', () => {
   square.forEach((element) => {
-    element.parentNode.removeChild(element);
+    element.parentNode.removeChild(element)
   })
-  game.cells =[]
+  game.score = 0
+  game.cells = []
   createArrayCells()
   createSquares()
   game.trace = true
@@ -401,3 +399,9 @@ newGame.addEventListener('click', () => {
   game.trace = true
   setRandomValue()
 })
+
+function increaseScore(value) {
+  game.score += value
+  score.lastChild.textContent = `${game.score}`
+  console.log(game.score, value);
+}
