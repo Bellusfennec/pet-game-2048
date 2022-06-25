@@ -106,6 +106,7 @@ function setRandomValue() {
     delete game.trace
   } else {
     console.log('нет свободных ячеек')
+    
   }
   updateCellsValues(game.cells)
 }
