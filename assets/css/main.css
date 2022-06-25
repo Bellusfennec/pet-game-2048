@@ -5,18 +5,18 @@
   --colorGrey: rgb(201, 201, 201);
   --colorDarkGrey: rgb(104, 104, 104);
   /* */
-  --colorRank-2: #f0d9e4;
-  --colorRank-4: #f1c3ee;
-  --colorRank-8: #ccb6db;
-  --colorRank-16: #b4addb;
-  --colorRank-32: #a4b6da;
-  --colorRank-64: #9ccfda;
-  --colorRank-128: #93dac6;
-  --colorRank-256: #8ada9d;
-  --colorRank-512: #96d981;
-  --colorRank-1024: #bcd979;
-  --colorRank-2048: #d9c670;
-  --colorRank-4096: #da9069;
+  --colorRank-2: #f5eaf7;
+  --colorRank-4: #d8c8ec;
+  --colorRank-8: #c4c4f7;
+  --colorRank-16: #b5cef4;
+  --colorRank-32: #a7e2f1;
+  --colorRank-64: #9aefdd;
+  --colorRank-128: #8decb1;
+  --colorRank-256: #83e97f;
+  --colorRank-512: #a5e673;
+  --colorRank-1024: #cee365;
+  --colorRank-2048: #e1bf5a;
+  --colorRank-4096: #de804d;
 }
 
 * {
