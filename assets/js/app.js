@@ -5,12 +5,15 @@ let touchendY = 0
 let square
 const app = document.querySelector('#game')
 const newGame = document.querySelector('#newGame')
-const score = document.querySelector('#score')
+const score = document.querySelectorAll('.score')
+const storageName = 'game-2048'
 
-const game = {
+let game = {
   size: 5,
   cells: [],
-  score: 0
+  score: 0,
+  bestScore: 0
+
 }
 
 function createArrayCells() {
@@ -33,9 +36,11 @@ function createSquares() {
   square = document.querySelectorAll('.square')
 }
 
-if (localStorage.getItem('2048-game') !== null) {
-  game.cells = JSON.parse(localStorage.getItem('2048-game'))
+if (localStorage.getItem(storageName) !== null) {
+  game = JSON.parse(localStorage.getItem(storageName))
   createSquares()
+  score[0].lastChild.textContent = `${game.score}`
+  score[1].lastChild.textContent = `${game.bestScore}`
   game.cells.forEach((cell, i, cells) => {
     if (cell.row === game.cells[i].row && cell.col === game.cells[i].col) {
       cell.value = game.cells[i].value
@@ -45,6 +50,7 @@ if (localStorage.getItem('2048-game') !== null) {
     }
   })
 } else {
+  score[1].lastChild.textContent = `${game.bestScore}`
   createArrayCells()
   createSquares()
   game.trace = true
@@ -73,8 +79,15 @@ app.addEventListener(
 )
 
 // добавить координаты к ячейкам
+// let acc = 2
 // game.cells.forEach((cell, i) => {
-//   square[i].firstChild.textContent = cell.row + ',' + cell.col
+//   if (acc < 4097) {
+//     square[i].firstChild.textContent = acc
+//     square[i].firstChild.classList.add(`rank-${acc}`)
+//     console.log(acc);
+//     let newAcc = acc * 2
+//     acc = newAcc
+//   } 
 // })
 
 function setRandomValue() {
@@ -123,7 +136,7 @@ function updateCellsValues(array) {
       cell.value = array[i].value
     }
   })
-  localStorage.setItem('2048-game', JSON.stringify(array))
+  localStorage.setItem(storageName, JSON.stringify(game))
 }
 
 // движение вверх
@@ -391,6 +404,7 @@ newGame.addEventListener('click', () => {
     element.parentNode.removeChild(element)
   })
   game.score = 0
+  score[0].lastChild.textContent = `${game.score}`
   game.cells = []
   createArrayCells()
   createSquares()
@@ -402,6 +416,9 @@ newGame.addEventListener('click', () => {
 
 function increaseScore(value) {
   game.score += value
-  score.lastChild.textContent = `${game.score}`
-  console.log(game.score, value);
+  score[0].lastChild.textContent = `${game.score}`
+  if (game.score > game.bestScore) {
+    game.bestScore = game.score
+    score[1].lastChild.textContent = `${game.bestScore}`
+  }
 }

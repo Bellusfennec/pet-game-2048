@@ -1,3 +1,23 @@
+:root {
+  --colorWhite: rgb(250, 250, 244);
+  --colorBlack: rgb(80, 80, 80);
+  --colorLightGrey: rgb(226, 226, 226);
+  --colorGrey: rgb(201, 201, 201);
+  --colorDarkGrey: rgb(104, 104, 104);
+  /* */
+  --colorRank-2: #f0d9e4;
+  --colorRank-4: #f1c3ee;
+  --colorRank-8: #ccb6db;
+  --colorRank-16: #b4addb;
+  --colorRank-32: #a4b6da;
+  --colorRank-64: #9ccfda;
+  --colorRank-128: #93dac6;
+  --colorRank-256: #8ada9d;
+  --colorRank-512: #96d981;
+  --colorRank-1024: #bcd979;
+  --colorRank-2048: #d9c670;
+  --colorRank-4096: #da9069;;
+}
 * {
   padding: 0;
   margin: 0;
@@ -8,7 +28,7 @@ html,
 body {
   font-size: 15.9936px;
   font-family: "Roboto", serif;
-  color: darken(#e0e0e0, 50%);
+  color: var(--colorDarkGrey);
   @media screen and (max-width: 600px) {
     font-size: 11px;
   }
@@ -29,6 +49,7 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 1rem;
   margin-top: 0.9375em;
   @media screen and (max-width: 600px) {
@@ -44,12 +65,12 @@ body {
     margin-block-end: 0;
     line-height: 0.9;
     a {
-      font-size: 3em;
-      color: darken(#e0e0e0, 50%);
+      font-size: 2.5em;
+      color: var(--colorDarkGrey);
       text-decoration: none;
       transition: 0.2s;
       &:hover {
-        color: darken(#e0e0e0, 60%);
+        color: var(--colorBlack);
       }
     }
   }
@@ -59,10 +80,9 @@ body {
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: #e0e0e0;
+      background: var(--colorGrey);
       justify-content: center;
-      padding: 0 0.9375em;
-      margin: 0.625em 0;
+      padding: .4375em 0.9375em;
       &:first-of-type {
         margin-right: 0.9375em;
       }
@@ -70,12 +90,13 @@ body {
         font-weight: bold;
         &:first-of-type {
           text-transform: uppercase;
-          font-size: 0.9em;
+          font-size: 0.75em;
+          color: var(--colorDarkGrey)
         }
         &:last-of-type {
-          margin-top: 0.1875em;
-          font-size: 1.3em;
-          color: lighten(#e0e0e0, 10%);
+          // margin-top: 0.1875em;
+          font-size: 1.5em;
+          color: var(--colorWhite)
         }
       }
     }
@@ -103,13 +124,13 @@ body {
     outline: none;
     border: none;
     font-size: 1.3rem;
-    color: lighten(#e0e0e0, 20%);
-    background: darken(#e0e0e0, 20%);
+    color: var(--colorWhite);
+    background: var(--colorDarkGrey);
     padding: 0.4375em 0.9375em;
     white-space: nowrap;
+    transition: 0.2s;
     &:hover {
-      color: lighten(#e0e0e0, 30%);
-      background: darken(#e0e0e0, 30%);
+      background: var(--colorBlack);
     }
   }
 }
@@ -133,7 +154,7 @@ body {
   // top: 50%;
   // left: 50%;
   // transform: translate(-50%, -50%);
-  background: #e0e0e0;
+  background: var(--colorLightGrey);
   padding: 0.312rem;
   user-select: none;
   touch-action: none;
@@ -141,7 +162,7 @@ body {
     margin: 0.312rem;
     height: 6.2496rem;
     width: 6.2496rem;
-    background: lighten(#e0e0e0, 10%);
+    background: var(--colorWhite);
     // transition: 0.3s;
     font-size: 3.5rem;
     font-weight: bold;
@@ -151,6 +172,7 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
+      box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1) inset;
       &.new {
         animation: new 200ms ease-out;
       }
@@ -161,42 +183,46 @@ body {
         background: none;
       }
       &.rank-2 {
-        background: #d2d2e2;
+        background: var(--colorRank-2);
       }
       &.rank-4 {
-        background: #b0d8ff;
+        background: var(--colorRank-4);
       }
       &.rank-8 {
-        background: #e2d1e0;
+        background: var(--colorRank-8);
+        // color: var(--colorWhite)
       }
       &.rank-16 {
-        background: #d3bad0;
+        background: var(--colorRank-16);
       }
       &.rank-32 {
-        background: #f2b9cc;
+        background: var(--colorRank-32);
       }
       &.rank-64 {
-        background: #f8c7c1;
+        background: var(--colorRank-64);
       }
       &.rank-128 {
-        background: #fedea5;
+        background: var(--colorRank-128);
         font-size: 3rem;
       }
       &.rank-256 {
-        background: #fde694;
+        background: var(--colorRank-256);
         font-size: 3rem;
       }
       &.rank-512 {
-        background: #9ec295;
+        background: var(--colorRank-512);
         font-size: 3rem;
       }
       &.rank-1024 {
-        background: #9ec295;
+        background: var(--colorRank-1024);
         font-size: 2.5rem;
       }
       &.rank-2048 {
-        background: #9ec295;
-        // color: lighten(#E0E0E0, 50%);
+        background: var(--colorRank-2048);
+        font-size: 2.25rem;
+      }
+      &.rank-4096 {
+        background: var(--colorRank-4096);
         font-size: 2.25rem;
       }
     }

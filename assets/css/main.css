@@ -1,3 +1,24 @@
+:root {
+  --colorWhite: rgb(250, 250, 244);
+  --colorBlack: rgb(80, 80, 80);
+  --colorLightGrey: rgb(226, 226, 226);
+  --colorGrey: rgb(201, 201, 201);
+  --colorDarkGrey: rgb(104, 104, 104);
+  /* */
+  --colorRank-2: #f0d9e4;
+  --colorRank-4: #f1c3ee;
+  --colorRank-8: #ccb6db;
+  --colorRank-16: #b4addb;
+  --colorRank-32: #a4b6da;
+  --colorRank-64: #9ccfda;
+  --colorRank-128: #93dac6;
+  --colorRank-256: #8ada9d;
+  --colorRank-512: #96d981;
+  --colorRank-1024: #bcd979;
+  --colorRank-2048: #d9c670;
+  --colorRank-4096: #da9069;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -11,7 +32,7 @@ html,
 body {
   font-size: 15.9936px;
   font-family: "Roboto", serif;
-  color: #616161;
+  color: var(--colorDarkGrey);
 }
 
 @media screen and (max-width: 600px) {
@@ -54,6 +75,10 @@ body {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 1rem;
   margin-top: 0.9375em;
 }
@@ -81,8 +106,8 @@ body {
 }
 
 .header h1.logo a {
-  font-size: 3em;
-  color: #616161;
+  font-size: 2.5em;
+  color: var(--colorDarkGrey);
   text-decoration: none;
   -webkit-transition: 0.2s;
   -o-transition: 0.2s;
@@ -90,7 +115,7 @@ body {
 }
 
 .header h1.logo a:hover {
-  color: #474747;
+  color: var(--colorBlack);
 }
 
 .header div {
@@ -114,13 +139,12 @@ body {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #e0e0e0;
+  background: var(--colorGrey);
   -webkit-box-pack: center;
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 0 0.9375em;
-  margin: 0.625em 0;
+  padding: .4375em 0.9375em;
 }
 
 .header div .score:first-of-type {
@@ -133,13 +157,13 @@ body {
 
 .header div .score span:first-of-type {
   text-transform: uppercase;
-  font-size: 0.9em;
+  font-size: 0.75em;
+  color: var(--colorDarkGrey);
 }
 
 .header div .score span:last-of-type {
-  margin-top: 0.1875em;
-  font-size: 1.3em;
-  color: #fafafa;
+  font-size: 1.5em;
+  color: var(--colorWhite);
 }
 
 .sub-header {
@@ -181,15 +205,17 @@ body {
   outline: none;
   border: none;
   font-size: 1.3rem;
-  color: white;
-  background: #adadad;
+  color: var(--colorWhite);
+  background: var(--colorDarkGrey);
   padding: 0.4375em 0.9375em;
   white-space: nowrap;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .sub-header button:hover {
-  color: white;
-  background: #949494;
+  background: var(--colorBlack);
 }
 
 .learn {
@@ -221,7 +247,7 @@ body {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   position: relative;
-  background: #e0e0e0;
+  background: var(--colorLightGrey);
   padding: 0.312rem;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -235,7 +261,7 @@ body {
   margin: 0.312rem;
   height: 6.2496rem;
   width: 6.2496rem;
-  background: #fafafa;
+  background: var(--colorWhite);
   font-size: 3.5rem;
   font-weight: bold;
 }
@@ -255,6 +281,8 @@ body {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1) inset;
+          box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1) inset;
 }
 
 #game .square div.new {
@@ -272,51 +300,56 @@ body {
 }
 
 #game .square div.rank-2 {
-  background: #d2d2e2;
+  background: var(--colorRank-2);
 }
 
 #game .square div.rank-4 {
-  background: #b0d8ff;
+  background: var(--colorRank-4);
 }
 
 #game .square div.rank-8 {
-  background: #e2d1e0;
+  background: var(--colorRank-8);
 }
 
 #game .square div.rank-16 {
-  background: #d3bad0;
+  background: var(--colorRank-16);
 }
 
 #game .square div.rank-32 {
-  background: #f2b9cc;
+  background: var(--colorRank-32);
 }
 
 #game .square div.rank-64 {
-  background: #f8c7c1;
+  background: var(--colorRank-64);
 }
 
 #game .square div.rank-128 {
-  background: #fedea5;
+  background: var(--colorRank-128);
   font-size: 3rem;
 }
 
 #game .square div.rank-256 {
-  background: #fde694;
+  background: var(--colorRank-256);
   font-size: 3rem;
 }
 
 #game .square div.rank-512 {
-  background: #9ec295;
+  background: var(--colorRank-512);
   font-size: 3rem;
 }
 
 #game .square div.rank-1024 {
-  background: #9ec295;
+  background: var(--colorRank-1024);
   font-size: 2.5rem;
 }
 
 #game .square div.rank-2048 {
-  background: #9ec295;
+  background: var(--colorRank-2048);
+  font-size: 2.25rem;
+}
+
+#game .square div.rank-4096 {
+  background: var(--colorRank-4096);
   font-size: 2.25rem;
 }
 
