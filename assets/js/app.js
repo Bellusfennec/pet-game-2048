@@ -98,7 +98,7 @@ function setRandomValue() {
     game.cells
       .filter((cell) => cell.row === randomCell.row && cell.col === randomCell.col)
       .map((cell) => {
-        cell.value = Math.random() > 0.8 ? 4 : 2
+        cell.value = Math.random() > 0.9 ? 4 : 2
         addClassSquare(cell, 'rank', 100)
         addClassSquare(cell, 'new', 100)
         delClassSquare(cell, 'new', 300)
@@ -114,18 +114,22 @@ function setRandomValue() {
 document.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowUp') {
     moveTop()
+    updateCellsValues(game.cells)
     setRandomValue()
   }
   if (event.key === 'ArrowRight') {
     moveRight()
+    updateCellsValues(game.cells)
     setRandomValue()
   }
   if (event.key === 'ArrowDown') {
     moveBottom()
+    updateCellsValues(game.cells)
     setRandomValue()
   }
   if (event.key === 'ArrowLeft') {
     moveLeft()
+    updateCellsValues(game.cells)
     setRandomValue()
   }
 })
@@ -154,7 +158,6 @@ function moveTop() {
         }
       })
   }
-  updateCellsValues(game.cells)
 }
 
 // движение вниз
@@ -172,7 +175,6 @@ function moveBottom() {
         }
       })
   }
-  updateCellsValues(game.cells)
 }
 
 // движение на право
@@ -190,7 +192,6 @@ function moveRight() {
         }
       })
   }
-  updateCellsValues(game.cells)
 }
 
 // движение на лево
@@ -207,7 +208,6 @@ function moveLeft() {
         }
       })
   }
-  updateCellsValues(game.cells)
 }
 
 function append(parent, element) {

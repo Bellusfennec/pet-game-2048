@@ -144,7 +144,7 @@ body {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: .4375em 0.9375em;
+  padding: 0.4375em 0.9375em;
 }
 
 .header div .score:first-of-type {
@@ -159,6 +159,11 @@ body {
   text-transform: uppercase;
   font-size: 0.75em;
   color: var(--colorDarkGrey);
+}
+
+.header div .score span:first-of-type div.up {
+  -webkit-animation: up 200ms ease-out;
+          animation: up 200ms ease-out;
 }
 
 .header div .score span:last-of-type {
@@ -281,8 +286,8 @@ body {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1) inset;
-          box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1) inset;
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3) inset;
+          box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3) inset;
 }
 
 #game .square div.new {
@@ -357,12 +362,12 @@ body {
   0% {
     opacity: 0;
     -webkit-transform: scale(0);
-    transform: scale(0);
+            transform: scale(0);
   }
   100% {
     opacity: 1;
     -webkit-transform: scale(1);
-    transform: scale(1);
+            transform: scale(1);
   }
 }
 
@@ -370,41 +375,67 @@ body {
   0% {
     opacity: 0;
     -webkit-transform: scale(0);
-    transform: scale(0);
+            transform: scale(0);
   }
   100% {
     opacity: 1;
     -webkit-transform: scale(1);
-    transform: scale(1);
+            transform: scale(1);
   }
 }
 
 @-webkit-keyframes merge {
   0% {
     -webkit-transform: scale(0);
-    transform: scale(0);
+            transform: scale(0);
   }
   50% {
     -webkit-transform: scale(1.2);
-    transform: scale(1.2);
+            transform: scale(1.2);
   }
   100% {
     -webkit-transform: scale(1);
-    transform: scale(1);
+            transform: scale(1);
   }
 }
 
 @keyframes merge {
   0% {
     -webkit-transform: scale(0);
-    transform: scale(0);
+            transform: scale(0);
   }
   50% {
     -webkit-transform: scale(1.2);
-    transform: scale(1.2);
+            transform: scale(1.2);
   }
   100% {
     -webkit-transform: scale(1);
-    transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@-webkit-keyframes up {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes up {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
