@@ -3,20 +3,26 @@ let touchstartY = 0
 let touchendX = 0
 let touchendY = 0
 let square
+const container = document.querySelector('.container')
 const app = document.querySelector('#game')
-const newGame = document.querySelector('#newGame')
+const newGame = document.querySelectorAll('.newGame')
 const score = document.querySelectorAll('.score')
+const modal = document.querySelectorAll('.modal')
 const storageName = 'game-2048'
 
 let game = {
   size: 5,
   cells: [],
   score: 0,
-  bestScore: 0
-
+  bestScore: 0,
+  moveTop: false,
+  moveRight: false,
+  moveBottom: false,
+  moveLeft: false,
 }
 
 function createArrayCells() {
+  container.style.width = `${(game.size * 110) + 10}px`
   for (let x = 0; x < game.size; x++) {
     for (let y = 0; y < game.size; y++) {
       game.cells.push({ row: x, col: y, value: null })
@@ -39,6 +45,7 @@ function createSquares() {
 if (localStorage.getItem(storageName) !== null) {
   game = JSON.parse(localStorage.getItem(storageName))
   createSquares()
+  container.style.width = `${(game.size * 110) + 10}px`
   score[0].lastChild.textContent = `${game.score}`
   score[1].lastChild.textContent = `${game.bestScore}`
   game.cells.forEach((cell, i, cells) => {
@@ -57,6 +64,7 @@ if (localStorage.getItem(storageName) !== null) {
   setRandomValue()
   game.trace = true
   setRandomValue()
+  updateCellsValues(game.cells)
 }
 
 app.addEventListener(
@@ -87,7 +95,7 @@ app.addEventListener(
 //     console.log(acc);
 //     let newAcc = acc * 2
 //     acc = newAcc
-//   } 
+//   }
 // })
 
 function setRandomValue() {
@@ -98,39 +106,54 @@ function setRandomValue() {
     game.cells
       .filter((cell) => cell.row === randomCell.row && cell.col === randomCell.col)
       .map((cell) => {
-        cell.value = Math.random() > 0.9 ? 4 : 2
+        cell.value = Math.random() > 0.8 ? 4 : 2
         addClassSquare(cell, 'rank', 100)
         addClassSquare(cell, 'new', 100)
         delClassSquare(cell, 'new', 300)
       })
     delete game.trace
-  } else {
-    console.log('нет свободных ячеек')
-    
   }
-  updateCellsValues(game.cells)
+}
+
+function check() {
+  moveTop(true)
+  moveRight(true)
+  moveBottom(true)
+  moveLeft(true)
+  if (!game.moveTop && !game.moveBottom && !game.moveLeft && !game.moveRight) {
+    modal[0].style.display = 'block'
+    console.log('конец игры --------------------------------------------------------')
+  }
+  game.moveTop = false
+  game.moveBottom = false
+  game.moveLeft = false
+  game.moveRight = false
 }
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowUp') {
     moveTop()
-    updateCellsValues(game.cells)
     setRandomValue()
+    updateCellsValues(game.cells)
+    check()
   }
   if (event.key === 'ArrowRight') {
     moveRight()
-    updateCellsValues(game.cells)
     setRandomValue()
+    updateCellsValues(game.cells)
+    check()
   }
   if (event.key === 'ArrowDown') {
     moveBottom()
-    updateCellsValues(game.cells)
     setRandomValue()
+    updateCellsValues(game.cells)
+    check()
   }
   if (event.key === 'ArrowLeft') {
     moveLeft()
-    updateCellsValues(game.cells)
     setRandomValue()
+    updateCellsValues(game.cells)
+    check()
   }
 })
 
@@ -145,7 +168,7 @@ function updateCellsValues(array) {
 }
 
 // движение вверх
-function moveTop() {
+function moveTop(check = false) {
   for (let col = 0; col < game.size; col++) {
     game.cells
       .filter((c) => c.col === col)
@@ -154,14 +177,18 @@ function moveTop() {
         let previousCell = cells.find((c) => c.value === null && c.row < cell.row)
 
         if (cell.value !== null) {
-          moveCell(previousCell, cell, nextCell, 'top')
+          if (((nextCell && cell.value === nextCell.value) || previousCell) && check) {
+            game.moveTop = true
+          } else {
+            moveCell(previousCell, cell, nextCell, 'top')
+          }
         }
       })
   }
 }
 
 // движение вниз
-function moveBottom() {
+function moveBottom(check = false) {
   for (let col = 0; col < game.size; col++) {
     game.cells
       .filter((c) => c.col === col)
@@ -171,14 +198,18 @@ function moveBottom() {
         let previousCell = cells.find((c) => c.value === null && c.row > cell.row)
 
         if (cell.value !== null) {
-          moveCell(previousCell, cell, nextCell, 'bottom')
+          if (((nextCell && cell.value === nextCell.value) || previousCell) && check) {
+            game.moveBottom = true
+          } else {
+            moveCell(previousCell, cell, nextCell, 'bottom')
+          }
         }
       })
   }
 }
 
 // движение на право
-function moveRight() {
+function moveRight(check = false) {
   for (let row = 0; row < game.size; row++) {
     game.cells
       .filter((c) => c.row === row)
@@ -188,14 +219,18 @@ function moveRight() {
         let previousCell = cells.find((c) => c.value === null && c.col > cell.col)
 
         if (cell.value !== null) {
-          moveCell(previousCell, cell, nextCell, 'right')
+          if (((nextCell && cell.value === nextCell.value) || previousCell) && check) {
+            game.moveRight = true
+          } else {
+            moveCell(previousCell, cell, nextCell, 'right')
+          }
         }
       })
   }
 }
 
 // движение на лево
-function moveLeft() {
+function moveLeft(check = false) {
   for (let row = 0; row < game.size; row++) {
     game.cells
       .filter((c) => c.row === row)
@@ -204,7 +239,11 @@ function moveLeft() {
         let previousCell = cells.find((c) => c.value === null && c.col < cell.col)
 
         if (cell.value !== null) {
-          moveCell(previousCell, cell, nextCell, 'left')
+          if (((nextCell && cell.value === nextCell.value) || previousCell) && check) {
+            game.moveLeft = true
+          } else {
+            moveCell(previousCell, cell, nextCell, 'left')
+          }
         }
       })
   }
@@ -213,18 +252,23 @@ function moveLeft() {
 function append(parent, element) {
   return parent.append(element)
 }
+
 function addNode(element) {
   return document.createElement(element)
 }
+
 function addClass(element, className) {
   return element.classList.add(className)
 }
+
 function removeClass(element, className) {
   return element.classList.remove(className)
 }
+
 function getRandomNumber(min, max) {
   return Math.round(Math.random() * (min - max) + max)
 }
+
 function getRandomArrayElement(array) {
   return array[Math.floor(Math.random() * array.length)]
 }
@@ -385,35 +429,45 @@ function handleGesure() {
   if (touchendY < touchstartY && y > x) {
     moveTop()
     setRandomValue()
+    updateCellsValues(game.cells)
   }
   if (touchendX > touchstartX && y < x) {
     moveRight()
     setRandomValue()
+    updateCellsValues(game.cells)
   }
   if (touchendY > touchstartY && y > x) {
     moveBottom()
     setRandomValue()
+    updateCellsValues(game.cells)
   }
   if (touchendX < touchstartX && y < x) {
     moveLeft()
     setRandomValue()
+    updateCellsValues(game.cells)
   }
 }
-
-newGame.addEventListener('click', () => {
-  square.forEach((element) => {
-    element.parentNode.removeChild(element)
+newGame.forEach((button, i) => {
+  button.addEventListener('click', () => {
+    square.forEach((element) => {
+      element.parentNode.removeChild(element)
+    })
+    game.score = 0
+    score[0].lastChild.textContent = `${game.score}`
+    game.cells = []
+    createArrayCells()
+    createSquares()
+    game.trace = true
+    setRandomValue()
+    game.trace = true
+    setRandomValue()
+    updateCellsValues(game.cells)
+    if (i = 1) {
+      modal[0].style.display = 'none'
+    }
   })
-  game.score = 0
-  score[0].lastChild.textContent = `${game.score}`
-  game.cells = []
-  createArrayCells()
-  createSquares()
-  game.trace = true
-  setRandomValue()
-  game.trace = true
-  setRandomValue()
 })
+
 
 function increaseScore(value) {
   game.score += value

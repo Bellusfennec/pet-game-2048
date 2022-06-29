@@ -1,10 +1,14 @@
 :root {
-  --colorWhite: rgb(250, 250, 244);
-  --colorBlack: rgb(80, 80, 80);
-  --colorLightGrey: rgb(226, 226, 226);
-  --colorGrey: rgb(201, 201, 201);
-  --colorDarkGrey: rgb(104, 104, 104);
-  /* */
+  --color-black-1: #ffffff;
+  --color-black-2: #f0f0f0;
+  --color-black-3: #e1e1e1;
+  --color-black-4: #c8c8c8;
+  --color-black-5: #aaaaaa;
+  --color-black-6: #8c8c8c;
+  --color-black-7: #6e6e6e;
+  --color-black-8: #505050;
+  --color-black-9: #323232;
+  // Rank
   --colorRank-2: #f5eaf7;
   --colorRank-4: #d8c8ec;
   --colorRank-8: #c4c4f7;
@@ -22,13 +26,13 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  border-radius: 0.312rem;
+  border-radius: 4.992px;
 }
 html,
 body {
-  font-size: 15.9936px;
+  font-size: 18px;
   font-family: "Roboto", serif;
-  color: var(--colorDarkGrey);
+  color: var(--color-black-7);
   @media screen and (max-width: 600px) {
     font-size: 11px;
   }
@@ -36,28 +40,40 @@ body {
     font-size: 10px;
   }
 }
+button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: var(--color-black-1);
+  background: var(--color-black-7);
+  padding: 10px 20px;
+  white-space: nowrap;
+  transition: 0.2s;
+  &:hover {
+    background: var(--color-black-8);
+  }
+}
+a {
+  color: var(--color-black-7);
+  text-decoration: none;
+  transition: 0.2s;
+  &:hover {
+    color: var(--color-black-8);
+  }
+}
 .container {
   margin: auto;
   width: 560px;
-  @media screen and (max-width: 600px) {
-    width: 385px;
-  }
-  @media screen and (max-width: 400px) {
-    width: 350px;
-  }
 }
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1rem;
-  margin-top: 0.9375em;
-  @media screen and (max-width: 600px) {
-    font-size: 1.2rem;
-  }
-  @media screen and (max-width: 400px) {
-    font-size: 1rem;
-  }
+  font-size: 16px;
+  margin-top: 15px;
   h1.logo {
     margin: 0;
     padding: 0;
@@ -65,13 +81,7 @@ body {
     margin-block-end: 0;
     line-height: 0.9;
     a {
-      font-size: 2.5em;
-      color: var(--colorDarkGrey);
-      text-decoration: none;
-      transition: 0.2s;
-      &:hover {
-        color: var(--colorBlack);
-      }
+      font-size: 80px;
     }
   }
   div {
@@ -80,26 +90,25 @@ body {
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: var(--colorGrey);
+      background: var(--color-black-4);
       justify-content: center;
-      padding: 0.4375em 0.9375em;
+      padding: 7px 15px;
       &:first-of-type {
-        margin-right: 0.9375em;
+        margin-right: 15px;
       }
       span {
         font-weight: bold;
         &:first-of-type {
           text-transform: uppercase;
-          font-size: 0.75em;
-          color: var(--colorDarkGrey);
+          font-size: 14px;
+          color: var(--color-black-8);
           div.up {
             animation: up 200ms ease-out;
           }
         }
         &:last-of-type {
-          // margin-top: 0.1875em;
-          font-size: 1.5em;
-          color: var(--colorWhite);
+          font-size: 24px;
+          color: var(--color-black-1);
         }
       }
     }
@@ -110,61 +119,57 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.625em;
-  font-size: 1rem;
-  @media screen and (max-width: 600px) {
-    font-size: 1.3rem;
-  }
-  @media screen and (max-width: 400px) {
-    font-size: 1rem;
-  }
+  margin-top: 10px;
   p {
-    margin-right: 0.625em;
-    font-size: 1.1rem;
-  }
-  button {
-    cursor: pointer;
-    outline: none;
-    border: none;
-    font-size: 1.3rem;
-    color: var(--colorWhite);
-    background: var(--colorDarkGrey);
-    padding: 0.4375em 0.9375em;
-    white-space: nowrap;
-    transition: 0.2s;
-    &:hover {
-      background: var(--colorBlack);
-    }
+    margin-right: 10px;
   }
 }
 .learn {
   margin-top: 15px;
-  font-size: 1.1rem;
-  @media screen and (max-width: 600px) {
-    font-size: 1.3rem;
-  }
-  @media screen and (max-width: 400px) {
-    font-size: 1rem;
+}
+#gameOver {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  .modalBody {
+    padding: 30px;
+    background: var(--color-black-1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .modalTitle {
+      cursor: default;
+      font-size: 30px;
+      font-weight: bold;
+    }
+    div {
+      margin-top: 15px;
+      text-align: center;
+    }
   }
 }
 
 #game {
-  margin-top: 1.25rem;
+  margin-top: 20px;
   display: flex;
-  width: calc(31.2504rem + 3.75rem);
   flex-wrap: wrap;
   position: relative;
-  background: var(--colorLightGrey);
-  padding: 0.312rem;
+  background: var(--color-black-3);
+  padding: 4.992px;
   user-select: none;
   touch-action: none;
   .square {
-    margin: 0.312rem;
-    height: 6.2496rem;
-    width: 6.2496rem;
-    background: var(--colorWhite);
+    margin: 5px;
+    height: 100px;
+    width: 100px;
+    background: var(--color-black-1);
     // transition: 0.3s;
-    font-size: 3.5rem;
+    font-size: 56px;
     font-weight: bold;
     div {
       height: inherit;
@@ -184,14 +189,12 @@ body {
       }
       &.rank-2 {
         background: var(--colorRank-2);
-        
       }
       &.rank-4 {
         background: var(--colorRank-4);
       }
       &.rank-8 {
         background: var(--colorRank-8);
-        // color: var(--colorWhite)
       }
       &.rank-16 {
         background: var(--colorRank-16);
@@ -204,27 +207,27 @@ body {
       }
       &.rank-128 {
         background: var(--colorRank-128);
-        font-size: 3rem;
+        font-size: 48px;
       }
       &.rank-256 {
         background: var(--colorRank-256);
-        font-size: 3rem;
+        font-size: 48px;
       }
       &.rank-512 {
         background: var(--colorRank-512);
-        font-size: 3rem;
+        font-size: 48px;
       }
       &.rank-1024 {
         background: var(--colorRank-1024);
-        font-size: 2.5rem;
+        font-size: 40px;
       }
       &.rank-2048 {
         background: var(--colorRank-2048);
-        font-size: 2.25rem;
+        font-size: 36px;
       }
       &.rank-4096 {
         background: var(--colorRank-4096);
-        font-size: 2.25rem;
+        font-size: 36px;
       }
     }
   }
