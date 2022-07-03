@@ -8,10 +8,11 @@ const app = document.querySelector('#game')
 const newGame = document.querySelectorAll('.newGame')
 const score = document.querySelectorAll('.score')
 const modal = document.querySelectorAll('.modal')
+const settings = document.querySelector('.settings')
 const storageName = 'game-2048'
 
 let game = {
-  size: 5,
+  size: 4,
   cells: [],
   score: 0,
   bestScore: 0,
@@ -22,7 +23,7 @@ let game = {
 }
 
 function createArrayCells() {
-  container.style.width = `${(game.size * 110) + 10}px`
+  container.style.width = `${game.size * 110 + 10}px`
   for (let x = 0; x < game.size; x++) {
     for (let y = 0; y < game.size; y++) {
       game.cells.push({ row: x, col: y, value: null })
@@ -45,7 +46,7 @@ function createSquares() {
 if (localStorage.getItem(storageName) !== null) {
   game = JSON.parse(localStorage.getItem(storageName))
   createSquares()
-  container.style.width = `${(game.size * 110) + 10}px`
+  container.style.width = `${game.size * 110 + 10}px`
   score[0].lastChild.textContent = `${game.score}`
   score[1].lastChild.textContent = `${game.bestScore}`
   game.cells.forEach((cell, i, cells) => {
@@ -122,7 +123,6 @@ function check() {
   moveLeft(true)
   if (!game.moveTop && !game.moveBottom && !game.moveLeft && !game.moveRight) {
     modal[0].style.display = 'block'
-    console.log('конец игры --------------------------------------------------------')
   }
   game.moveTop = false
   game.moveBottom = false
@@ -279,11 +279,8 @@ function animate({ duration, draw, timing }) {
   requestAnimationFrame(function animate(time) {
     let timeFraction = (time - start) / duration
     if (timeFraction > 1) timeFraction = 1
-
     let progress = timing(timeFraction)
-
     draw(progress)
-
     if (timeFraction < 1) {
       requestAnimationFrame(animate)
     }
@@ -316,6 +313,10 @@ function delClassSquare(cellNumber, className, time = null) {
 
 function moveCell(previousCell, cell, nextCell, move = 'right') {
   // console.log(previousCell, cell, nextCell)
+  let time = 100
+  let sizeSquare = 100 // 6.25
+  let paddingSquare = 10 // 0.625
+  let unit = 'px'
   let translate
   let direction
   let abs = 0
@@ -340,25 +341,25 @@ function moveCell(previousCell, cell, nextCell, move = 'right') {
     if (previousCell) {
       countMoveCell1 += cell[`${direction}`] - previousCell[`${direction}`]
     }
-    delClassSquare(cell, 'rank', 100)
+    delClassSquare(cell, 'rank', time)
     cell.value *= 2
     increaseScore(cell.value)
-    addClassSquare(cell, 'rank', 100)
-    delClassSquare(nextCell, 'rank', 100)
+    addClassSquare(cell, 'rank', time)
+    delClassSquare(nextCell, 'rank', time)
     nextCell.value = null
-    addClassSquare(cell, 'merge', 100)
-    delClassSquare(cell, 'merge', 300)
+    addClassSquare(cell, 'merge', time)
+    delClassSquare(cell, 'merge', time + 200)
     animate({
-      duration: 100,
+      duration: time,
       timing: function (timeFraction) {
         return timeFraction
       },
       draw: function (progress) {
         square[nextCell.number].firstChild.style.transform = `${translate}(${minus}${
           abs > 0
-            ? Math.abs(progress * (countMoveCell1 * 6.25) + countMoveCell1 * 0.625)
-            : progress * (countMoveCell1 * 6.25) + countMoveCell1 * 0.625
-        }rem)`
+            ? Math.abs(progress * (countMoveCell1 * sizeSquare) + countMoveCell1 * paddingSquare)
+            : progress * (countMoveCell1 * sizeSquare) + countMoveCell1 * paddingSquare
+        }${unit})`
         square[nextCell.number].firstChild.style.zIndex = 1
         if (progress === 1) {
           square[nextCell.number].firstChild.style.transform = ''
@@ -370,22 +371,22 @@ function moveCell(previousCell, cell, nextCell, move = 'right') {
       game.trace = true
       let countMoveCell = cell[`${direction}`] - previousCell[`${direction}`]
       previousCell.value = cell.value
-      delClassSquare(cell, 'rank', 100)
-      addClassSquare(previousCell, 'rank', 100)
+      delClassSquare(cell, 'rank', time)
+      addClassSquare(previousCell, 'rank', time)
       cell.value = null
-      addClassSquare(previousCell, 'merge', 100)
-      delClassSquare(previousCell, 'merge', 300)
+      addClassSquare(previousCell, 'merge', time)
+      delClassSquare(previousCell, 'merge', time + 200)
       animate({
-        duration: 100,
+        duration: time,
         timing: function (timeFraction) {
           return timeFraction
         },
         draw: function (progress) {
           square[cell.number].firstChild.style.transform = `${translate}(${minus}${
             abs > 0
-              ? Math.abs(progress * (countMoveCell * 6.25) + countMoveCell * 0.625)
-              : progress * (countMoveCell * 6.25) + countMoveCell * 0.625
-          }rem)`
+              ? Math.abs(progress * (countMoveCell * sizeSquare) + countMoveCell * paddingSquare)
+              : progress * (countMoveCell * sizeSquare) + countMoveCell * paddingSquare
+          }${unit})`
           square[cell.number].firstChild.style.zIndex = 1
           if (progress === 1) {
             square[cell.number].firstChild.style.transform = ''
@@ -398,15 +399,43 @@ function moveCell(previousCell, cell, nextCell, move = 'right') {
     game.trace = true
     let countMoveCell = cell[`${direction}`] - previousCell[`${direction}`]
     previousCell.value = cell.value
-    delClassSquare(cell, 'rank', 100)
-    addClassSquare(previousCell, 'rank', 100)
+    delClassSquare(cell, 'rank', time)
+    addClassSquare(previousCell, 'rank', time)
     cell.value = null
     animate({
-      duration: 100,
+      duration: time,
       timing: function (timeFraction) {
         return timeFraction
       },
       draw: function (progress) {
+        // console.log(abs > 0
+        //   ? Math.abs(progress * (countMoveCell * sizeSquare) + countMoveCell * paddingSquare)
+        //   : progress * (countMoveCell * sizeSquare) + countMoveCell * paddingSquare);
+        square[cell.number].firstChild.style.transform = `${translate}(${minus}${
+          abs > 0
+            ? Math.abs(progress * (countMoveCell * sizeSquare) + countMoveCell * paddingSquare)
+            : progress * (countMoveCell * sizeSquare) + countMoveCell * paddingSquare
+        }${unit})`
+        square[cell.number].firstChild.style.zIndex = 1
+        if (progress === 1) {
+          square[cell.number].firstChild.style.transform = ''
+          square[cell.number].firstChild.style.zIndex = ''
+        }
+      },
+    })
+  }
+}
+
+function startAnimation() {
+  animate({
+      duration: time,
+      timing: function (timeFraction) {
+        return timeFraction
+      },
+      draw: function (progress) {
+        console.log(abs > 0
+          ? Math.abs(progress * (countMoveCell * 6.25) + countMoveCell * 0.625)
+          : progress * (countMoveCell * 6.25) + countMoveCell * 0.625);
         square[cell.number].firstChild.style.transform = `${translate}(${minus}${
           abs > 0
             ? Math.abs(progress * (countMoveCell * 6.25) + countMoveCell * 0.625)
@@ -419,7 +448,6 @@ function moveCell(previousCell, cell, nextCell, move = 'right') {
         }
       },
     })
-  }
 }
 
 function handleGesure() {
@@ -449,25 +477,9 @@ function handleGesure() {
 }
 newGame.forEach((button, i) => {
   button.addEventListener('click', () => {
-    square.forEach((element) => {
-      element.parentNode.removeChild(element)
-    })
-    game.score = 0
-    score[0].lastChild.textContent = `${game.score}`
-    game.cells = []
-    createArrayCells()
-    createSquares()
-    game.trace = true
-    setRandomValue()
-    game.trace = true
-    setRandomValue()
-    updateCellsValues(game.cells)
-    if (i = 1) {
-      modal[0].style.display = 'none'
-    }
+    startNewGame()
   })
 })
-
 
 function increaseScore(value) {
   game.score += value
@@ -477,3 +489,60 @@ function increaseScore(value) {
     score[1].lastChild.textContent = `${game.bestScore}`
   }
 }
+
+const gameSettings = document.querySelector('#gameSettings')
+const gameSwitch = document.querySelector('.switch')
+const gameMode = document.querySelector('.gameMode')
+
+settings.addEventListener('click', () => {
+  gameSettings.style.display = 'block'
+})
+
+gameSwitch.addEventListener('click', (event) => {
+  gameSwitch.classList.toggle('switchOn')
+  if (!gameMode.checked) {
+    game.size = 5
+    startNewGame()
+  } else if (gameMode.checked) {
+    game.size = 4
+    startNewGame()
+  }
+})
+
+if (game.size = 5) {
+  gameMode.checked = true
+  gameSwitch.classList.add('switchOn')
+} else if (game.size = 4) {
+  gameMode.checked = false
+}
+
+function startNewGame() {
+  square.forEach((element) => {
+    element.parentNode.removeChild(element)
+  })
+  game.score = 0
+  score[0].lastChild.textContent = `${game.score}`
+  game.cells = []
+  createArrayCells()
+  createSquares()
+  game.trace = true
+  setRandomValue()
+  game.trace = true
+  setRandomValue()
+  updateCellsValues(game.cells)
+  if ((i = 1)) {
+    modal[0].style.display = 'none'
+  }
+}
+modal.forEach((item, i) => {
+  item.addEventListener('click', (event) => {
+    item.style.display = 'none'
+  })
+})
+
+const bodyModals = document.querySelectorAll('.modalBody')
+bodyModals.forEach((bodyModal, i) => {
+  bodyModal.addEventListener('click', (event) => {
+    event.stopPropagation()
+  })
+})

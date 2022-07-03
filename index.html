@@ -4,13 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- google.com/ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="assets/css/main.css?v=3" />
+    <!-- fontawesome.com/ -->
+    <script src="https://kit.fontawesome.com/0305b441e1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/css/main.css?v=4" />
     <title>Game 2048</title>
   </head>
   <body>
@@ -24,7 +27,12 @@
       </header>
       <div class="sub-header">
         <p class="logo-desc">Соедините числа и доберитесь до плитки 2048!</p>
-        <button class="newGame">Новая игра</button>
+        <div>
+          <div class="settings">
+            <i class="fas fa-cog"></i>
+          </div>
+          <button class="newGame">Новая игра</button>
+        </div>
       </div>
       <div id="game"></div>
       <p class="learn">
@@ -34,10 +42,22 @@
     </div>
     <div id="gameOver" class="modal">
       <div class="modalBody">
-        <p class="modalTitle">Игра закончена!</p>
+        <header class="modalTitle">Вы проиграли!</header>
         <div><button class="newGame">Попробуйте еще раз</button></div>
       </div>
     </div>
-    <script src="assets/js/app.js?v=3"></script>
+    <div id="gameSettings" class="modal">
+      <div class="modalBody">
+        <header class="modalTitle">Настройки</header>
+        <div class="row">
+          <p>Поле 5х5</p>
+          <label>
+            <input type="checkbox" name="checkboxName" class="gameMode" hidden/>
+            <div class="switch"></div>
+          </label>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/app.js?v=4"></script>
   </body>
 </html>
