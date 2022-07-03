@@ -87,6 +87,7 @@ a {
   div {
     display: flex;
     .score {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -102,13 +103,17 @@ a {
           text-transform: uppercase;
           font-size: 14px;
           color: var(--color-black-8);
-          div.up {
-            animation: up 200ms ease-out;
-          }
         }
-        &:last-of-type {
+        &:nth-of-type(2) {
           font-size: 24px;
           color: var(--color-black-1);
+        }
+        &.increaseScore {
+          margin-top: 17px;
+          position: absolute;
+          font-size: 24px;
+          color: var(--color-black-7);
+          animation: up 700ms ease-out infinite;
         }
       }
     }
@@ -287,13 +292,14 @@ a {
 }
 @keyframes up {
   0% {
-    opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(0px);
   }
-
-  100% {
+  50% {
     opacity: 1;
-    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
   }
 }
 
@@ -325,7 +331,7 @@ a {
     -webkit-border-radius: 16px; //Chrome и Safari
   }
   &:after {
-    content: ' ';
+    content: " ";
     height: 29px;
     width: 29px;
     border-radius: 28px;
@@ -338,14 +344,13 @@ a {
     transition-duration: 300ms;
     -webkit-box-shadow: 0 2px 5px #999999;
     box-shadow: 0 2px 5px #999999;
-    }
+  }
 }
-.switchOn,.switchOn:before
-{
-background: #4cd964 !important;
+.switchOn,
+.switchOn:before {
+  background: #4cd964 !important;
 }
 
-.switchOn:after
-{
-left: 32px !important;
+.switchOn:after {
+  left: 32px !important;
 }

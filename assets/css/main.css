@@ -128,6 +128,7 @@ a:hover {
 }
 
 .header div .score {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -163,14 +164,18 @@ a:hover {
   color: var(--color-black-8);
 }
 
-.header div .score span:first-of-type div.up {
-  -webkit-animation: up 200ms ease-out;
-          animation: up 200ms ease-out;
-}
-
-.header div .score span:last-of-type {
+.header div .score span:nth-of-type(2) {
   font-size: 24px;
   color: var(--color-black-1);
+}
+
+.header div .score span.increaseScore {
+  margin-top: 17px;
+  position: absolute;
+  font-size: 24px;
+  color: var(--color-black-7);
+  -webkit-animation: up 700ms ease-out infinite;
+          animation: up 700ms ease-out infinite;
 }
 
 .sub-header {
@@ -471,27 +476,31 @@ a:hover {
 
 @-webkit-keyframes up {
   0% {
-    opacity: 0;
-    -webkit-transform: translateY(10px);
-            transform: translateY(10px);
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+  50% {
+    opacity: 1;
   }
   100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    opacity: 0;
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
   }
 }
 
 @keyframes up {
   0% {
-    opacity: 0;
-    -webkit-transform: translateY(10px);
-            transform: translateY(10px);
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+  50% {
+    opacity: 1;
   }
   100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    opacity: 0;
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
   }
 }
 
@@ -528,7 +537,7 @@ a:hover {
 }
 
 .switch:after {
-  content: ' ';
+  content: " ";
   height: 29px;
   width: 29px;
   -webkit-border-radius: 28px;
@@ -545,7 +554,8 @@ a:hover {
   box-shadow: 0 2px 5px #999999;
 }
 
-.switchOn, .switchOn:before {
+.switchOn,
+.switchOn:before {
   background: #4cd964 !important;
 }
 

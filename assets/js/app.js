@@ -264,12 +264,18 @@ function addNode(element) {
   return document.createElement(element)
 }
 
-function addClass(element, className) {
+function addClass(element, className, time = null) {
   return element.classList.add(className)
+  // setTimeout(() => {
+  //   element.classList.add(className)
+  // }, time)
 }
 
-function removeClass(element, className) {
+function removeClass(element, className, time = null) {
   return element.classList.remove(className)
+  // setTimeout(() => {
+  //   element.classList.add(className)
+  // }, time)
 }
 
 function getRandomNumber(min, max) {
@@ -435,26 +441,28 @@ function moveCell(previousCell, cell, nextCell, move = 'right') {
 
 function startAnimation() {
   animate({
-      duration: time,
-      timing: function (timeFraction) {
-        return timeFraction
-      },
-      draw: function (progress) {
-        console.log(abs > 0
+    duration: time,
+    timing: function (timeFraction) {
+      return timeFraction
+    },
+    draw: function (progress) {
+      console.log(
+        abs > 0
           ? Math.abs(progress * (countMoveCell * 6.25) + countMoveCell * 0.625)
-          : progress * (countMoveCell * 6.25) + countMoveCell * 0.625);
-        square[cell.number].firstChild.style.transform = `${translate}(${minus}${
-          abs > 0
-            ? Math.abs(progress * (countMoveCell * 6.25) + countMoveCell * 0.625)
-            : progress * (countMoveCell * 6.25) + countMoveCell * 0.625
-        }rem)`
-        square[cell.number].firstChild.style.zIndex = 1
-        if (progress === 1) {
-          square[cell.number].firstChild.style.transform = ''
-          square[cell.number].firstChild.style.zIndex = ''
-        }
-      },
-    })
+          : progress * (countMoveCell * 6.25) + countMoveCell * 0.625
+      )
+      square[cell.number].firstChild.style.transform = `${translate}(${minus}${
+        abs > 0
+          ? Math.abs(progress * (countMoveCell * 6.25) + countMoveCell * 0.625)
+          : progress * (countMoveCell * 6.25) + countMoveCell * 0.625
+      }rem)`
+      square[cell.number].firstChild.style.zIndex = 1
+      if (progress === 1) {
+        square[cell.number].firstChild.style.transform = ''
+        square[cell.number].firstChild.style.zIndex = ''
+      }
+    },
+  })
 }
 
 function handleGesure() {
@@ -490,11 +498,25 @@ newGame.forEach((button, i) => {
 
 function increaseScore(value) {
   game.score += value
-  score[0].lastChild.textContent = `${game.score}`
+  score[0].children[1].textContent = `${game.score}`
+
+  animatedIncreaseScore(score[0], value)
+
   if (game.score > game.bestScore) {
     game.bestScore = game.score
-    score[1].lastChild.textContent = `${game.bestScore}`
+    score[1].children[1].textContent = `${game.bestScore}`
+    animatedIncreaseScore(score[1], value)
   }
+}
+
+function animatedIncreaseScore(element, value) {
+  const span = addNode('span')
+  append(element, span)
+  span.classList.add('increaseScore')
+  span.textContent = `+${value}`
+  setTimeout(() => {
+    span.parentNode.removeChild(span)
+  }, 650)
 }
 
 settings.addEventListener('click', () => {
