@@ -9,6 +9,10 @@ const newGame = document.querySelectorAll('.newGame')
 const score = document.querySelectorAll('.score')
 const modal = document.querySelectorAll('.modal')
 const settings = document.querySelector('.settings')
+const gameSettings = document.querySelector('#gameSettings')
+const gameSwitch = document.querySelector('.switch')
+const gameMode = document.querySelector('.gameMode')
+const bodyModals = document.querySelectorAll('.modalBody')
 const storageName = 'game-2048'
 
 let game = {
@@ -44,7 +48,8 @@ function createSquares() {
 }
 
 if (localStorage.getItem(storageName) !== null) {
-  game = JSON.parse(localStorage.getItem(storageName))
+  localGame = JSON.parse(localStorage.getItem(storageName))
+  game = localGame
   createSquares()
   container.style.width = `${game.size * 110 + 10}px`
   score[0].lastChild.textContent = `${game.score}`
@@ -57,6 +62,7 @@ if (localStorage.getItem(storageName) !== null) {
       }
     }
   })
+  switched(localGame.size)
 } else {
   score[1].lastChild.textContent = `${game.bestScore}`
   createArrayCells()
@@ -66,6 +72,7 @@ if (localStorage.getItem(storageName) !== null) {
   game.trace = true
   setRandomValue()
   updateCellsValues(game.cells)
+  switched(game.size)
 }
 
 app.addEventListener(
@@ -490,10 +497,6 @@ function increaseScore(value) {
   }
 }
 
-const gameSettings = document.querySelector('#gameSettings')
-const gameSwitch = document.querySelector('.switch')
-const gameMode = document.querySelector('.gameMode')
-
 settings.addEventListener('click', () => {
   gameSettings.style.display = 'block'
 })
@@ -508,13 +511,6 @@ gameSwitch.addEventListener('click', (event) => {
     startNewGame()
   }
 })
-
-if (game.size = 5) {
-  gameMode.checked = true
-  gameSwitch.classList.add('switchOn')
-} else if (game.size = 4) {
-  gameMode.checked = false
-}
 
 function startNewGame() {
   square.forEach((element) => {
@@ -540,9 +536,18 @@ modal.forEach((item, i) => {
   })
 })
 
-const bodyModals = document.querySelectorAll('.modalBody')
 bodyModals.forEach((bodyModal, i) => {
   bodyModal.addEventListener('click', (event) => {
     event.stopPropagation()
   })
 })
+
+function switched(size) {
+  if (size === 5) {
+    gameMode.checked = true
+    gameSwitch.classList.add('switchOn')
+  } else if (size === 4) {
+    gameMode.checked = false
+    gameSwitch.classList.remove('switchOn')
+  }
+}
