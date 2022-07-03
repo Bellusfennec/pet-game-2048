@@ -513,10 +513,11 @@ function animatedIncreaseScore(element, value) {
   const span = addNode('span')
   append(element, span)
   span.classList.add('increaseScore')
+  span.style.color = `var(--colorRank-${value})`
   span.textContent = `+${value}`
   setTimeout(() => {
     span.parentNode.removeChild(span)
-  }, 650)
+  }, 950)
 }
 
 settings.addEventListener('click', () => {
