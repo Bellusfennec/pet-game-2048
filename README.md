@@ -10,5 +10,5 @@ https://bellusfennec.github.io/game-2048/
 - [@bellusfennec](https://www.github.com/bellusfennec)
 
 
-## P.S
+## P.S.
 Делал на Javascript, во время своего самостоятельного изучения с нуля.
